@@ -32,6 +32,8 @@ cd ..
     --user "USERNAME" \
     --pass "PASSWORD"
 
+pip install mwxml
+
 python 1.py WIKI-20260423-wikidimp/WIKI-20260423-history.xml
 python 2.py
 ```
