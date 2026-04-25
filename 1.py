@@ -27,7 +27,7 @@ namespaces = {}
 for namespace in dump.site_info.namespaces:
     namespaces[namespace.id] = namespace.name
 
-current = ""
+current = "" # "".join(map(lambda x: x.text or "", revs[:1234]))
 
 size = old_size = 0
 
@@ -41,11 +41,11 @@ except IndexError:
 output = csv.writer(open(output_file, "w"))
 output.writerow(["revid", "namespace", "page", "user", "size", "delta"])
 
-progress = 0
+progress = 0 # 1233
 total_progress = len(revs)
 rjust = len(str(total_progress))
 
-for rev in revs:
+for rev in revs: # revs[1234:]:
     current += rev.text or ""
 
     size = len(lzma.compress(bytes(current, "utf-8"), preset=lzma.PRESET_EXTREME))
@@ -53,7 +53,7 @@ for rev in revs:
     old_size = size
 
     namespace = namespaces[rev.page.namespace]
-    result = [rev.id, namespace, rev.page.title.removeprefix(namespace + ":"), rev.user.text, size, delta]
+    result = [rev.id, namespace, rev.page.title.removeprefix(namespace + ":"), rev.user.text if rev.user else "", size, delta]
 
     results.append(result)
 
